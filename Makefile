@@ -8,15 +8,20 @@ CC = gcc
 
 FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 
-INCLUDES = -Imlx -I.
+INCLUDES = -I minilibx -I .
+
+MLX = mlx/libmlx.a
 
 .c.o:
 	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $(<:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+$(NAME): $(OBJS) $(MLX)
+	$(CC) $(FLAGS) -L mlx -lmlx -framework OpenGL -framework AppKit $(OBJS) -o $(NAME)
+
+$(MLX):
+	make -C mlx
 
 clean:
 	@rm -f $(OBJS)

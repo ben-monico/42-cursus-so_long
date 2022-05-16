@@ -13,6 +13,12 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int 	bpp;
+	int 	line_len;
+	int 	endian;
+}	t_data;
 
 #endif
