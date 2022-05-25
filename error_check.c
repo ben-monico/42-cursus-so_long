@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:23:10 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/05/24 19:25:51 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:21:05 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	ft_is_rectangle(char *str, t_map *map)
 	{
 		if (str[j] == '\n' && i != map->wid)
 			break ;
-		else if (str[j] == '\n' && i == map->wid)
+		else if (str[j] == '\n' && str[j + 1] && i == map->wid)
 		{
 			i = 0;
 			map->hei++;
@@ -69,7 +69,7 @@ static int	ft_wall_surround(char *str, t_map *map)
 	k = 0;
 	while (str[k])
 	{
-		if (str[k] != '\n' && (j == 0 || j == map->hei || i == 0 || i == map->wid) && str[k] != '1')
+		if (str[k] != '\n' && (j == 0 || j == map->hei || i == 0 || i == map->wid - 1) && str[k] != '1')
 		{
 			write(1, "Error\nMap must be surrounded by walls\n", 41);
 			return (0);

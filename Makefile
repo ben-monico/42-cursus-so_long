@@ -22,7 +22,7 @@ GNL = gnl/libgnl.a
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(MLX)
+$(NAME): $(OBJS) $(MLX) $(GNL)
 	$(CC) $(FLAGS) -L mlx -L gnl -lgnl -lmlx -framework OpenGL -framework AppKit $(OBJS) -o $(NAME)
 
 $(MLX):
@@ -34,8 +34,8 @@ $(GNL):
 clean:
 	@rm -f $(OBJS)
 
-fclean:	clean
-	@rm -f $(NAME)
+fclean:	clean 
+	@rm -f $(NAME) $(MLX) $(GNL)
 
 re:	fclean all
 
