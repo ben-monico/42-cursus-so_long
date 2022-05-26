@@ -3,13 +3,16 @@ NAME = so_long
 SRCS =	main.c\
 		parse_map.c\
 		error_check.c\
-		libft_utils.c
+		libft_utils.c\
+		controls.c
 
 OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
 FLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
+
+MLX_FLAGS = -L mlx -L gnl -lgnl -lmlx -framework OpenGL -framework AppKit 
 
 INCLUDES = -I mlx -I gnl -I .
 
@@ -23,7 +26,7 @@ GNL = gnl/libgnl.a
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLX) $(GNL)
-	$(CC) $(FLAGS) -L mlx -L gnl -lgnl -lmlx -framework OpenGL -framework AppKit $(OBJS) -o $(NAME)
+	$(CC) $(FLAGS) $(MLX_FLAGS) $(OBJS) -o $(NAME)
 
 $(MLX):
 	make -C mlx
