@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:51:05 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/05/26 17:48:07 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:34:03 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ typedef struct s_game {
 }	t_game;
 
 int		ft_error_check(char *str, t_map *map);
-int		move_up(t_game *game);
-int		move_left(t_game *game);
-int		move_right(t_game *game);
-int		move_down(t_game *game);
+int		move_up(t_game *game, int open);
+int		move_left(t_game *game, int open);
+int		move_right(t_game *game, int open);
+int		move_down(t_game *game, int open);
 char	*ft_parse_map(char *av, t_map *map);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);

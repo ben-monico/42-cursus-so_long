@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:47:30 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/05/26 17:53:25 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/05/31 18:16:23 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,27 @@ int	exit_win(t_game *game)
 
 int	press_key(int key, t_game *game)
 {
+	int	x;
+	int	y;
+	int	open;
+
+	open = 0;
+	if (!ft_strchr(game->mapstr, 'C'))
+		open = 1;
 	if (key == KEY_ESC)
 		exit_win(game);
+	if (!ft_strchr(game->mapstr, 'E'))
+		return (0);
 	if (key == KEY_W)
-		move_up(game);
+		move_up(game, open);
 	else if (key == KEY_A)
-		move_left(game);
+		move_left(game, open);
 	else if (key == KEY_S)
-		move_down(game);
+		move_down(game, open);
 	else if (key == KEY_D)
-		move_right(game);
+		move_right(game, open);
+	if (!ft_strchr(game->mapstr, 'C'))
+		game->sprite->exit = mlx_xpm_file_to_image(game->mlx, "./i_exit1.xpm", &x, &y);
 	create_win(game);	
 	return (0);
 }
