@@ -1,0 +1,7 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/bcarreir/Desktop/42-cursus/so_long'
+gcc -Wall -Werror -Wextra  -I mlx -I gnl -I ft_printf -I .  -c libft_utils2.c -o libft_utils2.o
+ 
+gcc -Wall -Werror -Wextra  -L mlx -lmlx -L gnl -lgnl -L ft_printf -lftprintf -framework OpenGL -framework AppKit  main.o parse_map.o error_check.o libft_utils.o libft_utils2.o controls.o -o so_long
+make: Leaving directory `/Users/bcarreir/Desktop/42-cursus/so_long'
+ 

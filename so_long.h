@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:51:05 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/05/31 17:34:03 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:14:32 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include "gnl.h"
 # include "mlx.h"
+# include "libftprintf.h"
 
 # define X_EVENT_KEY_PRESS			2
 # define X_EVENT_KEY_RELEASE		3
@@ -40,6 +41,7 @@ typedef struct s_data {
 typedef struct s_map {
 	int	hei;
 	int wid;
+	int	on_exit;
 }	t_map;
 
 typedef struct s_sprite {
@@ -56,6 +58,7 @@ typedef struct s_game {
 	char		*mapstr;
 	t_map		*map;
 	t_sprite	*sprite;
+	int			steps;
 }	t_game;
 
 int		ft_error_check(char *str, t_map *map);
@@ -63,8 +66,10 @@ int		move_up(t_game *game, int open);
 int		move_left(t_game *game, int open);
 int		move_right(t_game *game, int open);
 int		move_down(t_game *game, int open);
-char	*ft_parse_map(char *av, t_map *map);
+char	*ft_parse_map(char *av, t_game *game);
 char	*ft_strchr(const char *s, int c);
+char	*ft_strrchr(const char *s, int c);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);

@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:47:30 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/05/31 18:16:23 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:51:24 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+int	exit_win(t_game *game)
+{
+	mlx_destroy_window(game->mlx, game->win);
+	exit(1);
+}
+
 int	create_win(t_game *game)
 {
 	int	i;
@@ -31,14 +37,13 @@ int	create_win(t_game *game)
 	h = 0;
 	while(game->mapstr[i])
 	{
-		if (game->mapstr[i] == 'P')
+		mlx_put_image_to_window(game->mlx, game->win, game->sprite->land, w, h);
+		if (game->mapstr[i] == '1')
+			mlx_put_image_to_window(game->mlx, game->win, game->sprite->wall, w, h);
+		else if (game->mapstr[i] == 'P')
 			mlx_put_image_to_window(game->mlx, game->win, game->sprite->player, w, h);
 		else if (game->mapstr[i] == 'C')
 			mlx_put_image_to_window(game->mlx, game->win, game->sprite->collect, w, h);
-		else if (game->mapstr[i] == '0')
-			mlx_put_image_to_window(game->mlx, game->win, game->sprite->land, w, h);
-		else if (game->mapstr[i] == '1')
-			mlx_put_image_to_window(game->mlx, game->win, game->sprite->wall, w, h);
 		else if (game->mapstr[i] == 'E')
 			mlx_put_image_to_window(game->mlx, game->win, game->sprite->exit, w, h);
 		w += 64;
@@ -52,12 +57,6 @@ int	create_win(t_game *game)
 	return (0);
 }
 
-int	exit_win(t_game *game)
-{
-	mlx_destroy_window(game->mlx, game->win);
-	exit(1);
-}
-
 int	press_key(int key, t_game *game)
 {
 	int	x;
@@ -69,20 +68,43 @@ int	press_key(int key, t_game *game)
 		open = 1;
 	if (key == KEY_ESC)
 		exit_win(game);
-	if (!ft_strchr(game->mapstr, 'E'))
+	if (game->map->on_exit == 1)
+	{
+		ft_printf("Success! You finished the game in %d steps. Press 'Esc' to exit.\n", game->steps);
 		return (0);
+	}
 	if (key == KEY_W)
-		move_up(game, open);
+		game->steps += move_up(game, open);
 	else if (key == KEY_A)
-		move_left(game, open);
+		game->steps += move_left(game, open);
 	else if (key == KEY_S)
-		move_down(game, open);
+		game->steps += move_down(game, open);
 	else if (key == KEY_D)
-		move_right(game, open);
+		game->steps += move_right(game, open);
 	if (!ft_strchr(game->mapstr, 'C'))
-		game->sprite->exit = mlx_xpm_file_to_image(game->mlx, "./i_exit1.xpm", &x, &y);
-	create_win(game);	
+		game->sprite->exit = mlx_xpm_file_to_image(game->mlx, "./igloo_1.xpm", &x, &y);
+	create_win(game);
+	ft_printf("Steps: %d\n", game->steps);
 	return (0);
+}
+
+int	assign_xpm(t_game *game)
+{
+	int	x;
+	int	y;
+
+	game->sprite->player = mlx_xpm_file_to_image(game->mlx, "./i_player.xpm", &x, &y);
+	game->sprite->collect = mlx_xpm_file_to_image(game->mlx, "./i_fish.xpm", &x, &y);
+	game->sprite->land = mlx_xpm_file_to_image(game->mlx, "./floor.xpm", &x, &y);
+	game->sprite->wall = mlx_xpm_file_to_image(game->mlx, "./iceberg.xpm", &x, &y);
+	game->sprite->exit = mlx_xpm_file_to_image(game->mlx, "./iglooPB.xpm", &x, &y);
+	if (!game->sprite->player  || !game->sprite->collect || !game->sprite->land ||
+		!game->sprite->wall || !game->sprite->exit)
+		{
+			ft_printf("Error\nInvalid or missing .xpm file\n");
+			return (0);
+		}
+	return (1);
 }
 
 int	init_all(t_game *game, char **av)
@@ -92,7 +114,8 @@ int	init_all(t_game *game, char **av)
         return (0);
     game->map->hei = 0;
     game->map->wid = 0;
-    game->mapstr = ft_parse_map(av[1], game->map);
+	game->map->on_exit = 0;
+    game->mapstr = ft_parse_map(av[1], game);
     if (!game->mapstr)
 	{
 		free(game->map);
@@ -104,35 +127,39 @@ int	init_all(t_game *game, char **av)
         free(game->map);
         return (0);
     }
-	// define_xpm(game);
+	game->steps = 0;
 	return (1);
 }
 
 int	main(int ac, char **av)
 {
-    t_game game;
-	int	x;
-	int	y;
+    t_game	game;
+	char	*extension;
 
     if (ac != 2)
     {
         write(1, "Error\n", 6);
         return (1);
     }
+	extension = ft_strrchr(av[1], '.');
+	if (!extension || strcmp(extension, ".ber"))
+	{
+        write(1, "Error\n", 6);
+		return (1);
+	}
 	if (!init_all(&game, av))
 		return (1);
     game.mlx = mlx_init();
+	if (!assign_xpm(&game))
+		return (1);
 	game.win = mlx_new_window(game.mlx, game.map->wid * 64, (game.map->hei + 1) * 64, "so_long_suckers");
-	game.sprite->player = mlx_xpm_file_to_image(game.mlx, "./i_player.xpm", &x, &y);
-	game.sprite->collect = mlx_xpm_file_to_image(game.mlx, "./i_fish.xpm", &x, &y);
-	game.sprite->land = mlx_xpm_file_to_image(game.mlx, "./i_land.xpm", &x, &y);
-	game.sprite->wall = mlx_xpm_file_to_image(game.mlx, "./i_wall.xpm", &x, &y);
-	game.sprite->exit = mlx_xpm_file_to_image(game.mlx, "./i_exit0.xpm", &x, &y);
 	create_win(&game);
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, press_key, &game);
 	// mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, exit_win, &game);
+	system("leaks -- so_long");
 	mlx_loop(game.mlx);
-
+	return (0);
+}
 
 //    void    *imge;
 //    char    *path = "./download.png";
@@ -146,5 +173,3 @@ int	main(int ac, char **av)
 //	mlx_put_image_to_window(mlx, win, screen.img, 0, 0);
 //	mlx_put_image_to_window(mlx, win, imge, 0, 0);
 //	mlx_put_image_to_window(mlx, win, imge, 24, 0);
-	return (0);
-}
