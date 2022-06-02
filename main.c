@@ -6,24 +6,62 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:47:30 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/06/01 18:51:24 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:22:15 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
-}
-
 int	exit_win(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
 	exit(1);
+}
+
+void	update_counter(t_game *game)
+{
+	char	*counter;
+	int		len;
+	int		i;
+	int		w;
+	int		x;
+	int		y;
+
+	counter = ft_itoa(game->steps);
+	if (!counter)
+		return ;
+	len = ft_strlen(counter);
+	i = 0;
+	w = 12;
+		while (counter[i])
+		{
+			if (counter[i] == '0')
+				game->sprite->counter1 = mlx_xpm_file_to_image(game->mlx, "./s/0.xpm", &x, &y);
+			else if (counter[i] == '1')
+				game->sprite->counter1 = mlx_xpm_file_to_image(game->mlx, "./s/1.xpm", &x, &y);
+			else if (counter[i] == '2')
+				game->sprite->counter1 = mlx_xpm_file_to_image(game->mlx, "./s/2.xpm", &x, &y);
+			else if (counter[i] == '3')
+				game->sprite->counter1 = mlx_xpm_file_to_image(game->mlx, "./s/3.xpm", &x, &y);
+			else if (counter[i] == '4')
+				game->sprite->counter1 = mlx_xpm_file_to_image(game->mlx, "./s/4.xpm", &x, &y);
+			else if (counter[i] == '5')
+				game->sprite->counter1 = mlx_xpm_file_to_image(game->mlx, "./s/5.xpm", &x, &y);
+			else if (counter[i] == '6')
+				game->sprite->counter1 = mlx_xpm_file_to_image(game->mlx, "./s/6.xpm", &x, &y);
+			else if (counter[i] == '7')
+				game->sprite->counter1 = mlx_xpm_file_to_image(game->mlx, "./s/7.xpm", &x, &y);
+			else if (counter[i] == '8')
+				game->sprite->counter1 = mlx_xpm_file_to_image(game->mlx, "./s/8.xpm", &x, &y);
+			else
+				game->sprite->counter1 = mlx_xpm_file_to_image(game->mlx, "./s/9.xpm", &x, &y);
+			printf("%s\n", counter);
+			mlx_put_image_to_window(game->mlx, game->win, game->sprite->counter1, w, 0);
+			w += 48;
+			i++;
+	}
+	free(counter);
+	return ;
 }
 
 int	create_win(t_game *game)
@@ -46,6 +84,8 @@ int	create_win(t_game *game)
 			mlx_put_image_to_window(game->mlx, game->win, game->sprite->collect, w, h);
 		else if (game->mapstr[i] == 'E')
 			mlx_put_image_to_window(game->mlx, game->win, game->sprite->exit, w, h);
+		else if (game->mapstr[i] == 'F')
+			mlx_put_image_to_window(game->mlx, game->win, game->sprite->patrol, w, h);
 		w += 64;
 		if (game->mapstr[i] == '\n')
 		{
@@ -54,35 +94,56 @@ int	create_win(t_game *game)
 		}
 		i++;
 	}
+	update_counter(game);
 	return (0);
 }
 
-int	press_key(int key, t_game *game)
+int move_condition(t_game *game)
 {
 	int	x;
 	int	y;
-	int	open;
 
-	open = 0;
 	if (!ft_strchr(game->mapstr, 'C'))
-		open = 1;
-	if (key == KEY_ESC)
-		exit_win(game);
+	{
+		game->sprite->exit = mlx_xpm_file_to_image(game->mlx, "./s/igloo.xpm", &x, &y);
+		game->isopen = 1;	
+	}
 	if (game->map->on_exit == 1)
 	{
 		ft_printf("Success! You finished the game in %d steps. Press 'Esc' to exit.\n", game->steps);
 		return (0);
 	}
+	else if (game->over == 1)
+	{
+		game->sprite->player = mlx_xpm_file_to_image(game->mlx, "./s/playerdead.xpm", &x, &y);
+		ft_printf("Momma shoulda told you not to mess with frogs. Press 'Esc' to exit.\n", game->steps);
+		return (0);
+	}
+	return (1);
+}
+
+int	press_key(int key, t_game *game)
+{
+	if (key == KEY_ESC)
+		exit_win(game);
+	if (!move_condition(game))
+	{
+		create_win(game);
+		return (0);
+	}
 	if (key == KEY_W)
-		game->steps += move_up(game, open);
+		game->steps += move_up(game);
 	else if (key == KEY_A)
-		game->steps += move_left(game, open);
+		game->steps += move_left(game);
 	else if (key == KEY_S)
-		game->steps += move_down(game, open);
+		game->steps += move_down(game);
 	else if (key == KEY_D)
-		game->steps += move_right(game, open);
-	if (!ft_strchr(game->mapstr, 'C'))
-		game->sprite->exit = mlx_xpm_file_to_image(game->mlx, "./igloo_1.xpm", &x, &y);
+		game->steps += move_right(game);
+	if (!move_condition(game))
+	{
+		create_win(game);
+		return (0);
+	}
 	create_win(game);
 	ft_printf("Steps: %d\n", game->steps);
 	return (0);
@@ -93,11 +154,12 @@ int	assign_xpm(t_game *game)
 	int	x;
 	int	y;
 
-	game->sprite->player = mlx_xpm_file_to_image(game->mlx, "./i_player.xpm", &x, &y);
-	game->sprite->collect = mlx_xpm_file_to_image(game->mlx, "./i_fish.xpm", &x, &y);
-	game->sprite->land = mlx_xpm_file_to_image(game->mlx, "./floor.xpm", &x, &y);
-	game->sprite->wall = mlx_xpm_file_to_image(game->mlx, "./iceberg.xpm", &x, &y);
-	game->sprite->exit = mlx_xpm_file_to_image(game->mlx, "./iglooPB.xpm", &x, &y);
+	game->sprite->player = mlx_xpm_file_to_image(game->mlx, "./s/player.xpm", &x, &y);
+	game->sprite->collect = mlx_xpm_file_to_image(game->mlx, "./s/shrimp.xpm", &x, &y);
+	game->sprite->land = mlx_xpm_file_to_image(game->mlx, "./s/floor.xpm", &x, &y);
+	game->sprite->wall = mlx_xpm_file_to_image(game->mlx, "./s/wall.xpm", &x, &y);
+	game->sprite->exit = mlx_xpm_file_to_image(game->mlx, "./s/iglooBW.xpm", &x, &y);
+	game->sprite->patrol = mlx_xpm_file_to_image(game->mlx, "./s/patrol.xpm", &x, &y);
 	if (!game->sprite->player  || !game->sprite->collect || !game->sprite->land ||
 		!game->sprite->wall || !game->sprite->exit)
 		{
@@ -128,6 +190,7 @@ int	init_all(t_game *game, char **av)
         return (0);
     }
 	game->steps = 0;
+	game->over = 0;
 	return (1);
 }
 
@@ -155,7 +218,6 @@ int	main(int ac, char **av)
 	game.win = mlx_new_window(game.mlx, game.map->wid * 64, (game.map->hei + 1) * 64, "so_long_suckers");
 	create_win(&game);
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, press_key, &game);
-	// mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, exit_win, &game);
 	system("leaks -- so_long");
 	mlx_loop(game.mlx);
 	return (0);

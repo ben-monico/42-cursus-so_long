@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Wed Jun  1 17:56:57 2022
+# Make data base, printed on Thu Jun  2 18:36:42 2022
 
 # Variables
 
@@ -20,7 +20,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
-# makefile (from `Makefile', line 20)
+# makefile (from `Makefile', line 21)
 INCLUDES = -I mlx -I gnl -I ft_printf -I . 
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
@@ -32,7 +32,7 @@ CURDIR := /Users/bcarreir/Desktop/42-cursus/so_long
 SHELL = /bin/sh
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
-# makefile (from `Makefile', line 22)
+# makefile (from `Makefile', line 23)
 MLX = mlx/libmlx.a
 # environment
 _ = /usr/bin/make
@@ -42,10 +42,10 @@ MAKEFILE_LIST :=  Makefile
 VSCODE_NODE_CACHED_DATA_DIR = /Users/bcarreir/Library/Application Support/Code/CachedData/b4c1bd0a9b03c749ea011b06c6d2676c8091a70c
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from `Makefile', line 10)
+# makefile (from `Makefile', line 11)
 OBJS = $(SRCS:.c=.o)
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0001_cw000_l7/T/vscode-ipc-0d1b6932-a081-4eda-b28c-a591d8805daa.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0001_cw000_l7/T/vscode-ipc-0e8e259e-a4c5-4d5c-99b1-48f7ec78aed7.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -53,8 +53,8 @@ PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-LaunchInstanceID = D0083B28-0BDD-4325-AABA-6EC6AC09808B
-# makefile (from `Makefile', line 16)
+LaunchInstanceID = D54BB540-F2AC-4E38-912E-D958C1DC6493
+# makefile (from `Makefile', line 17)
 LINKERS = -L mlx -lmlx -L gnl -lgnl -L ft_printf -lftprintf
 # environment
 VSCODE_LOG_STACK = false
@@ -63,12 +63,15 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.CAlGP9RBVj/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.wcgQjXtzrt/Listeners
+ 
+make: *** No rule to make target `bonus.o', needed by `so_long'.  Stop.
+
 # automatic
 %F = $(notdir $%)
 # environment
 VSCODE_PIPE_LOGGING = true
-# makefile (from `Makefile', line 26)
+# makefile (from `Makefile', line 27)
 PRINTF = ft_printf/libftprintf.a
 # environment
 PWD = /Users/bcarreir/Desktop/42-cursus/so_long
@@ -97,10 +100,10 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # makefile (from `Makefile', line 3)
-SRCS = main.c parse_map.c error_check.c libft_utils.c libft_utils2.c controls.c
+SRCS = main.c controls.c error_check.c libft_utils.c libft_utils2.c parse_map.c bonus.c
 # environment
 SHLVL = 1
-# makefile (from `Makefile', line 12)
+# makefile (from `Makefile', line 13)
 CC = gcc
 # default
 MAKE_VERSION := 3.81
@@ -142,11 +145,11 @@ __CF_USER_TEXT_ENCODING = 0x2A67:0x0:0x0
 COMMAND_MODE = unix2003
 # default
 MAKEFILES := 
-# makefile (from `Makefile', line 24)
+# makefile (from `Makefile', line 25)
 GNL = gnl/libgnl.a
 # automatic
 <F = $(notdir $<)
-# makefile (from `Makefile', line 18)
+# makefile (from `Makefile', line 19)
 MLX_FLAGS = -framework OpenGL -framework AppKit 
 # environment
 PAGER = less
@@ -158,7 +161,7 @@ SECURITYSESSIONID = 186a7
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
-# makefile (from `Makefile', line 14)
+# makefile (from `Makefile', line 15)
 FLAGS = -Wall -Werror -Wextra 
 # default
 .INCLUDE_DIRS = /usr/local/include
@@ -167,7 +170,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 1419
+VSCODE_PID = 40101
 # variable set hash-table stats:
 # Load=78/1024=8%, Rehash=0, Collisions=9/112=8%
 
@@ -177,9 +180,9 @@ VSCODE_PID = 1419
 
 # Directories
 
-# . (device 16777225, inode 1132442): 32 files, no impossibilities.
+# . (device 16777225, inode 1132442): 29 files, no impossibilities.
 
-# 32 files, no impossibilities in 1 directories.
+# 29 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -198,9 +201,12 @@ all: so_long
 
 # Not a target:
 controls.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-06-02 18:24:14
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 .PHONY: all clean fclean re
 #  Implicit rule search has not been done.
@@ -216,7 +222,7 @@ controls.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-01 17:56:56
+#  Last modified 2022-06-02 18:36:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -224,6 +230,15 @@ Makefile:
 
 # Not a target:
 libft_utils2.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-02 14:42:39
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+bonus.o:
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has not been updated.
@@ -234,7 +249,7 @@ libft_utils2.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 29):
+#  commands to execute (from `Makefile', line 30):
 	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $(<:.c=.o)
 	
 
@@ -243,14 +258,14 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 49):
+#  commands to execute (from `Makefile', line 50):
 	@rm -f $(NAME) $(MLX) $(GNL) $(PRINTF)
 	
 
 # Not a target:
 parse_map.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-01 16:05:45
+#  Last modified 2022-06-02 16:01:05
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -266,7 +281,7 @@ mlx/libmlx.a:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 37):
+#  commands to execute (from `Makefile', line 38):
 	make -C mlx
 	
 
@@ -281,14 +296,14 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 46):
+#  commands to execute (from `Makefile', line 47):
 	@rm -f $(OBJS)
 	
 
 # Not a target:
 main.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-01 17:54:46
+#  Last modified 2022-06-02 18:35:06
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -298,24 +313,24 @@ gnl/libgnl.a:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 40):
+#  commands to execute (from `Makefile', line 41):
 	make -C gnl
 	
 
-so_long: main.o parse_map.o error_check.o libft_utils.o libft_utils2.o controls.o mlx/libmlx.a gnl/libgnl.a ft_printf/libftprintf.a
+so_long: main.o controls.o error_check.o libft_utils.o libft_utils2.o parse_map.o bonus.o mlx/libmlx.a gnl/libgnl.a ft_printf/libftprintf.a
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-01 17:54:49
+#  Last modified 2022-06-02 18:35:06
 #  File has not been updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 34):
+#  commands to execute (from `Makefile', line 35):
 	$(CC) $(FLAGS) $(LINKERS) $(MLX_FLAGS) $(OBJS) -o $(NAME)
 	
 
 # Not a target:
 libft_utils.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-01 16:05:46
+#  Last modified 2022-06-02 14:42:39
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -324,11 +339,8 @@ libft_utils.o:
 # Not a target:
 error_check.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-01 16:05:46
+#  Last modified 2022-06-02 14:42:39
 #  File has been updated.
- 
-make: *** No rule to make target `libft_utils2.o', needed by `so_long'.  Stop.
-
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
@@ -337,12 +349,12 @@ ft_printf/libftprintf.a:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 43):
+#  commands to execute (from `Makefile', line 44):
 	make -C ft_printf
 	
 
 # files hash-table stats:
-# Load=19/1024=2%, Rehash=0, Collisions=1/49=2%
+# Load=20/1024=2%, Rehash=0, Collisions=1/51=2%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -354,6 +366,6 @@ ft_printf/libftprintf.a:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Wed Jun  1 17:56:57 2022
+# Finished Make data base on Thu Jun  2 18:36:42 2022
 
  

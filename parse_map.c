@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/02 16:01:00 by bcarreir          #+#    #+#             */
+/*   Updated: 2022/06/02 16:01:01 by bcarreir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static char	*ft_read_map_to_str(char *av)
@@ -26,6 +38,7 @@ static char	*ft_read_map_to_str(char *av)
 	return(mapstr);
 }
 
+
 char 	*ft_parse_map(char *av, t_game *game)
 {
 	char	*mapstr;
@@ -48,5 +61,6 @@ char 	*ft_parse_map(char *av, t_game *game)
 		if (mapstr[i] == 'E')
 			game->map->on_exit = 0;
 	}
+	mapstr = patrol_handler(mapstr);
 	return (mapstr);
 }

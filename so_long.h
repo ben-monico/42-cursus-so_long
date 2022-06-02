@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:51:05 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/06/01 18:14:32 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/02 18:57:23 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ typedef struct s_sprite {
 	void	*land;
 	void	*collect;
 	void	*exit;
+	void	*patrol;
+	void	*counter1;
+	void	*counter2;
+	void	*counter3;
 }	t_sprite;
 
 typedef struct s_game {
@@ -59,14 +63,19 @@ typedef struct s_game {
 	t_map		*map;
 	t_sprite	*sprite;
 	int			steps;
+	int			isopen;
+	int			over;
 }	t_game;
 
 int		ft_error_check(char *str, t_map *map);
-int		move_up(t_game *game, int open);
-int		move_left(t_game *game, int open);
-int		move_right(t_game *game, int open);
-int		move_down(t_game *game, int open);
+char	*ft_itoa(int n);
+int		move_up(t_game *game);
+int		move_left(t_game *game);
+int		move_right(t_game *game);
+int		move_down(t_game *game);
 char	*ft_parse_map(char *av, t_game *game);
+char	*patrol_handler(char *str);
+int		sprite_collider(char c, t_game *game);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);
