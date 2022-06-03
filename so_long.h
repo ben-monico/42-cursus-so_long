@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:51:05 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/06/02 18:57:23 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/03 19:33:39 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ typedef struct s_sprite {
 	void	*exit;
 	void	*patrol;
 	void	*counter1;
-	void	*counter2;
-	void	*counter3;
 }	t_sprite;
 
 typedef struct s_game {
@@ -67,6 +65,7 @@ typedef struct s_game {
 	int			over;
 }	t_game;
 
+int		create_win(t_game *game);
 int		ft_error_check(char *str, t_map *map);
 char	*ft_itoa(int n);
 int		move_up(t_game *game);

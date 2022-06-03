@@ -1,12 +1,13 @@
 NAME = so_long
 
 SRCS =	main.c\
+		bonus.c\
 		controls.c\
 		error_check.c\
 		libft_utils.c\
 		libft_utils2.c\
 		parse_map.c\
-		bonus.c
+		screen.c
 
 OBJS = $(SRCS:.c=.o)
 

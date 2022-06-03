@@ -1,16 +1,10 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/bcarreir/Desktop/42-cursus/so_long'
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/benmonico/Desktop/so_long'
 gcc -Wall -Werror -Wextra  -I mlx -I gnl -I ft_printf -I .  -c main.c -o main.o
  
-gcc -Wall -Werror -Wextra  -I mlx -I gnl -I ft_printf -I .  -c controls.c -o controls.o
-gcc -Wall -Werror -Wextra  -I mlx -I gnl -I ft_printf -I .  -c error_check.c -o error_check.o
-gcc -Wall -Werror -Wextra  -I mlx -I gnl -I ft_printf -I .  -c libft_utils.c -o libft_utils.o
-gcc -Wall -Werror -Wextra  -I mlx -I gnl -I ft_printf -I .  -c libft_utils2.c -o libft_utils2.o
-gcc -Wall -Werror -Wextra  -I mlx -I gnl -I ft_printf -I .  -c parse_map.c -o parse_map.o
-gcc -Wall -Werror -Wextra  -I mlx -I gnl -I ft_printf -I .  -c bonus.c -o bonus.o
-make -C mlx
+gcc -Wall -Werror -Wextra  -I mlx -I gnl -I ft_printf -I .  -c screen.c -o screen.o
 make -C gnl
 make -C ft_printf
-gcc -Wall -Werror -Wextra  -L mlx -lmlx -L gnl -lgnl -L ft_printf -lftprintf -framework OpenGL -framework AppKit  main.o controls.o error_check.o libft_utils.o libft_utils2.o parse_map.o bonus.o -o so_long
-make: Leaving directory `/Users/bcarreir/Desktop/42-cursus/so_long'
+gcc -Wall -Werror -Wextra  -L mlx -lmlx -L gnl -lgnl -L ft_printf -lftprintf -framework OpenGL -framework AppKit  main.o bonus.o controls.o error_check.o libft_utils.o libft_utils2.o parse_map.o screen.o -o so_long
+make: Leaving directory `/Users/benmonico/Desktop/so_long'
  
