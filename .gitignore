@@ -1,8 +1,6 @@
 .DS_Store
 .idea
-.idea/
 .vscode
-.vscode/
 *.swp
 */*.swp
 *.o
