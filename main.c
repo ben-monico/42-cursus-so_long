@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:47:30 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/06/04 19:02:43 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:14:44 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,5 @@ int	main(int ac, char **av)
 	mlx_hook(g.win, X_EVENT_KEY_PRESS, 0, press_key, &g);
 	mlx_hook(g.win, X_EVENT_KEY_EXIT, 0, exit_win, &g);
 	mlx_loop(g.mlx);
-	// system("leaks -- so_long");
 	return (0);
 }
