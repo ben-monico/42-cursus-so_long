@@ -3,9 +3,11 @@ NAME = so_long
 SRCS =	main.c\
 		bonus.c\
 		controls.c\
+		counter.c\
 		error_check.c\
 		libft_utils.c\
 		libft_utils2.c\
+		movement.c\
 		parse_map.c\
 		screen.c
 

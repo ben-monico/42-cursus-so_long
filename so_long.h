@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:51:05 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/06/03 19:33:39 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/04 18:49:43 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,13 @@
 # define KEY_S			1
 # define KEY_D			2
 
-typedef struct s_data {
-	void	*img;
-	char	*addr;
-	int 	bpp;
-	int 	line_len;
-	int 	endian;
-}	t_data;
-
 typedef struct s_map {
-	int	hei;
-	int wid;
+	int	h;
+	int w;
 	int	on_exit;
 }	t_map;
 
-typedef struct s_sprite {
+typedef struct s_spt {
 	void	*player;
 	void	*wall;
 	void	*land;
@@ -52,29 +44,32 @@ typedef struct s_sprite {
 	void	*exit;
 	void	*patrol;
 	void	*counter1;
-}	t_sprite;
+}	t_spt;
 
-typedef struct s_game {
+typedef struct s_g {
 	void		*mlx;
 	void		*win;
 	char		*mapstr;
 	t_map		*map;
-	t_sprite	*sprite;
+	t_spt	*spt;
 	int			steps;
 	int			isopen;
 	int			over;
-}	t_game;
+}	t_g;
 
-int		create_win(t_game *game);
+int		create_win(t_g *g);
 int		ft_error_check(char *str, t_map *map);
+int		exit_win(t_g *g);
 char	*ft_itoa(int n);
-int		move_up(t_game *game);
-int		move_left(t_game *game);
-int		move_right(t_game *game);
-int		move_down(t_game *game);
-char	*ft_parse_map(char *av, t_game *game);
+int		move_up(t_g *g);
+int		move_left(t_g *g);
+int		move_right(t_g *g);
+int		move_down(t_g *g);
+char	*ft_parse_map(char *av, t_g *g);
 char	*patrol_handler(char *str);
-int		sprite_collider(char c, t_game *game);
+int		press_key(int key, t_g *g);
+void	put_image(t_g *g, char c, int w, int h);
+int		spt_collider(char c, t_g *g);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -82,5 +77,7 @@ char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
+void	update_counter(t_g *g);
+void	update_win(t_g *g, int i, int j);
 
 #endif
