@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:47:30 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/06/04 19:14:44 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:22:28 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,19 @@ int	init_all(t_g *g, char **av)
 int	main(int ac, char **av)
 {
 	t_g		g;
-	char	*extension;
+	char	*ext;
 
 	if (ac != 2)
 	{
-		write(1, "Error\n", 6);
+		write(1, "Error\nInvalid arg count\n", 25);
 		return (1);
 	}
-	extension = ft_strrchr(av[1], '.');
-	if (!extension || strcmp(extension, ".ber"))
+	ext = ft_strrchr(av[1], '.');
+	if (!ext || strcmp(ext, ".ber") || !init_all(&g, av))
 	{
-		write(1, "Error\n", 6);
+		write(1, "Error\nMap/Malloc issue\n", 24);
 		return (1);
 	}
-	if (!init_all(&g, av))
-		return (1);
 	g.mlx = mlx_init();
 	if (!assign_xpm(&g))
 		return (1);
