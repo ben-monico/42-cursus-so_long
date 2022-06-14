@@ -6,18 +6,19 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:47:30 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/06/04 19:22:28 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:06:30 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	exit_win(t_g *g)
+int	exit_win(t_g **g)
 {
-	mlx_destroy_window(g->mlx, g->win);
-	free(g->map);
-	free(g->spt);
-	free(g->mlx);
+	mlx_destroy_window((*g)->mlx, (*g)->win);
+	free((*g)->map);
+	free((*g)->spt);
+	free((*g)->mlx);
+	system("leaks -- so_long");
 	exit(1);
 }
 
@@ -104,7 +105,7 @@ int	main(int ac, char **av)
 	ext = ft_strrchr(av[1], '.');
 	if (!ext || strcmp(ext, ".ber") || !init_all(&g, av))
 	{
-		write(1, "Error\nMap/Malloc issue\n", 24);
+		write(1, "Error\nInvalid or missing map file\n", 35);
 		return (1);
 	}
 	g.mlx = mlx_init();

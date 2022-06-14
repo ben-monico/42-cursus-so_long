@@ -6,7 +6,7 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:51:05 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/06/04 18:49:43 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/14 14:48:10 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_g {
 
 int		create_win(t_g *g);
 int		ft_error_check(char *str, t_map *map);
-int		exit_win(t_g *g);
+int		exit_win(t_g **g);
 char	*ft_itoa(int n);
 int		move_up(t_g *g);
 int		move_left(t_g *g);

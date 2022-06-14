@@ -6,12 +6,12 @@
 /*   By: bcarreir <bcarreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 19:25:57 by bcarreir          #+#    #+#             */
-/*   Updated: 2022/05/25 14:08:41 by bcarreir         ###   ########.fr       */
+/*   Updated: 2022/06/14 14:37:04 by bcarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GNL_H
+# define GNL_H
 
 # include <stdio.h>
 # include <unistd.h>
